@@ -16,7 +16,9 @@ public class BookController {
     private final AuthorRepository authorRepository;
 
     @GetMapping
-    public String list() {
+    public String list(Model model) {
+        model.addAttribute("books", bookRepository.findAll());
+
         return "books";
     }
 
