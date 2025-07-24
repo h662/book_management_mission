@@ -36,4 +36,27 @@ public class BookController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/books/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        model.addAttribute("book", bookRepository.findById(id));
+        model.addAttribute("authors", authorRepository.finalAll());
+
+        return "book_form";
+    }
+
+    @PostMapping("/books/{id}/edit")
+    public String update(@PathVariable Long id, @ModelAttribute Book book) {
+        book.setId(id);
+        bookRepository.update(book);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/books/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        bookRepository.delete(id);
+
+        return "redirect:/";
+    }
 }
